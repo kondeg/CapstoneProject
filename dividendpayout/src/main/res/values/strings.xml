@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Dividend Payout</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="myPortfolioTab">My Portfolio</string>
+    <string name="cashFlowTab">Cash Flow</string>
+    <string name="ytdTab">Year To Date</string>
+    <string name="selectedTabIndex">selectedTabIndex</string>
+    <string name="title_activity_trade">TradeActivity</string>
+
+</resources>
