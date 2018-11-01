@@ -5,6 +5,7 @@
     tools:context="edu.udacity.project.app.MyPortfolio">
     <item
         android:id="@+id/menu_trade"
-        android:title="Trade"
+        android:title="@string/trade"
+        android:contentDescription="@string/trade"
         app:showAsAction="always"/>
 </menu>

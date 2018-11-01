@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#5472d3</color>
     <color name="offWhite">#cccccc</color>
+    <color name="labelColorGrey">#8c8c8c</color>
+    <color name="defaultBackground">#FAFAFA</color>
+    <color name="accentHeader">#d0dddc</color>
+    <color name="redColor">#ff3333</color>
 </resources>

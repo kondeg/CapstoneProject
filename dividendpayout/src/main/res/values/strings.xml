@@ -9,5 +9,82 @@
     <string name="ytdTab">Year To Date</string>
     <string name="selectedTabIndex">selectedTabIndex</string>
     <string name="title_activity_trade">TradeActivity</string>
+    <string name="trade_label">Log Trade</string>
+    <string name="trade">Trade</string>
+    <string name="ticker">Ticker:</string>
+    <string name="tickerH">Ticker</string>
+    <string name="numberOfShares">Number Of Shares:</string>
+    <string name="nShares">Shares</string>
+    <string name="purchasePrice">Purchase Price:</string>
+    <string name="pPrice">$</string>
+    <string name="purchaseDate">Date Purchased:</string>
+    <string name="pDate">MM/DD/YYYY</string>
+    <string name="salePrice">Sale Price:</string>
+    <string name="dateSold">Date Sold:</string>
+    <string name="dSold">MM/DD/YYYY</string>
+    <string name="saveButton">Save</string>
 
+    <string name="emptyPurchaseDateError">Please enter purchase date</string>
+    <string name="dateFormatError">Date must be in MM/DD/YYYY format</string>
+    <string name="futurePurchaseDateError">Purchase date cannot be in the future</string>
+    <string name="emptyPurchasePriceError">Purchase price is not valid</string>
+    <string name="emptySaleDateError">Please enter sale date</string>
+    <string name="futureSaleDateError">Sale date cannot be in the future</string>
+    <string name="emptySalePriceError">Sale price is not valid</string>
+    <string name="saleDateBeforePurchaseDateError">Sale date cannot be before purchase date</string>
+    <string name="numberOfSharesError">Number of shares must be a number greater than zero</string>
+    <string name="tickerError">Ticker is not valid</string>
+
+    <string name="lastUpdated">Stock Data As Of: %1$s</string>
+    <string name="portfolioTicker">Ticker</string>
+    <string name="portfolioShares">Shares</string>
+    <string name="portfolioPrice">Price</string>
+    <string name="portfolioYield">Yield</string>
+    <string name="portfolioAmount">Amt</string>
+    <string name="portfolioGain">Gain</string>
+
+    <string name="cashFlowLabel">Cash Flow For </string>
+    <string name="January">January</string>
+    <string name="February">February</string>
+    <string name="March">March</string>
+    <string name="April">April</string>
+    <string name="May">May</string>
+    <string name="June">June</string>
+    <string name="July">July</string>
+    <string name="August">August</string>
+    <string name="September">September</string>
+    <string name="October">October</string>
+    <string name="November">November</string>
+    <string name="December">December</string>
+    <string name="zeroDollars">$0.00</string>
+
+    <string name="cashFlowMonthHeader">Month</string>
+    <string name="cashFlowPredictedHeader">Predicted</string>
+    <string name="cashFlowReceivedHeader">Received</string>
+
+    <string name="ytdDividendsReceived">Year To Date Dividends</string>
+    <string name="ytdUnrealizedGainLoss">Unrealized Gain Loss</string>
+    <string name="ytdTotalDividendsForYear">Predicted Dividends For Year</string>
+    <string name="cashFlowHeader">%1$s Cash Flow By Month</string>
+    <string name="ytdHeader">%1$s Year To Date</string>
+    <string name="ytdActualDividends">ytdActualDividends</string>
+    <string name="ytdPredDividends">ytdPredDividends</string>
+
+    <string name="portfolioList">portfolioList</string>
+    <string name="positionId">positionId</string>
+    <string name="lastUpdatedDateSetting">lastUpdatedDateSetting</string>
+    <string name="tradeSaved">Trade Saved</string>
+    <string name="tradeAction">Trade</string>
+
+    <string name="clickToTradeTicker">Click to trade %1$s ticker</string>
+    <string name="advertisement">Advertisement</string>
+    <string name="dowStr">DOW </string>
+    <string name="sp">S&amp;P </string>
+    <string name="nasdaq">NASDAQ </string>
+    <string name="myPortfolio">Portfolio</string>
+    <string name="nextDividend">Div</string>
+
+    <string name="adUnitId">REPLACE</string>
+    <string name="appId">REPLACE</string>
+    <string name="analyticsApId">REPLACE</string>
 </resources>

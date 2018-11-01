@@ -11,17 +11,12 @@
     tools:context="edu.udacity.project.dividendpayout.app.TradeActivity"
     tools:showIn="@layout/activity_trade">
 
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:layout_width="0px"
-        android:layout_height="0px"/>
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/textView"
@@ -29,13 +24,12 @@
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/default_element_height"
-        android:text="@string/trade_label"
         android:contentDescription="@string/trade_label"
-        />
+        android:text="@string/trade_label" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
-        android:layout_width="326dp"
+        android:layout_width="@dimen/trade_width_land"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
@@ -46,7 +40,6 @@
         <TextView
             style="@style/FormLabel"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/default_element_height"
             android:text="@string/ticker"
             android:contentDescription="@string/tickerH"/>
 
@@ -54,20 +47,21 @@
             android:id="@+id/ticker_in"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/tickerH"
+            android:imeOptions="flagNoExtractUi"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:layout_marginLeft="94dp"
+            android:hint="@string/tickerH"
             android:background="@drawable/edittext_bottom_line"
-            android:inputType="text|textCapCharacters"
-            android:selectAllOnFocus="false"
-            android:singleLine="true" />
+            android:inputType="text|textCapCharacters" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="326dp"
+        android:layout_width="@dimen/trade_width_land"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
@@ -78,22 +72,26 @@
             android:layout_height="@dimen/default_element_height"
             android:contentDescription="@string/purchasePrice"
             android:text="@string/purchasePrice" />
-            <EditText
-                android:id="@+id/purchasePrice"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="24dp"
-                android:hint="@string/pPrice"
-                android:background="@drawable/edittext_bottom_line"
-                android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/purchasePrice"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="24dp"
+            android:focusable="true"
+            android:hint="@string/pPrice"
+            android:focusableInTouchMode="true"
+            android:imeOptions="flagNoExtractUi"
+            android:background="@drawable/edittext_bottom_line"
+            android:inputType="numberDecimal" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="326dp"
+        android:layout_width="@dimen/trade_width_land"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
@@ -109,10 +107,11 @@
             android:id="@+id/purchaseDate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:imeOptions="flagNoExtractUi"
             android:layout_marginLeft="@dimen/fab_margin"
-            android:hint="@string/pDate"
             android:background="@drawable/edittext_bottom_line"
             android:clickable="true"
+            android:hint="@string/pDate"
             android:drawablePadding="2dip"
             android:drawableRight="@drawable/baseline_date_range_black_18dp"
             android:focusable="true"
@@ -121,10 +120,10 @@
 
     <LinearLayout
         android:id="@+id/linearLayout7"
-        android:layout_width="326dp"
+        android:layout_width="@dimen/trade_width_land"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
@@ -140,6 +139,7 @@
             android:id="@+id/numberOfShares"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:imeOptions="flagNoExtractUi"
             android:layout_marginLeft="64dp"
             android:hint="@string/nShares"
             android:background="@drawable/edittext_bottom_line"
@@ -148,10 +148,10 @@
 
     <LinearLayout
         android:id="@+id/linearLayout4"
-        android:layout_width="326dp"
+        android:layout_width="@dimen/trade_width_land"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
@@ -161,24 +161,25 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/default_element_height"
             android:text="@string/salePrice"
-            android:contentDescription="@string/salePrice" />
+            android:contentDescription="@string/salePrice"/>
 
         <EditText
             android:id="@+id/salePrice"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/pPrice"
+            android:imeOptions="flagNoExtractUi"
             android:layout_marginLeft="64dp"
+            android:hint="@string/pPrice"
             android:background="@drawable/edittext_bottom_line"
             android:inputType="numberDecimal" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout5"
-        android:layout_width="326dp"
+        android:layout_width="@dimen/trade_width_land"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
@@ -188,7 +189,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/default_element_height"
             android:text="@string/dateSold"
-            android:contentDescription="@string/dateSold" />
+            android:contentDescription="@string/dateSold"/>
 
         <EditText
             android:id="@+id/saleDate"
@@ -197,11 +198,12 @@
             android:layout_marginLeft="@dimen/fab_margin"
             android:background="@drawable/edittext_bottom_line"
             android:clickable="true"
+            android:hint="@string/dSold"
+            android:imeOptions="flagNoExtractUi"
             android:drawableRight="@drawable/baseline_date_range_black_18dp"
             android:focusable="true"
-            android:hint="@string/dSold"
             android:gravity="center"
-            android:inputType="date" />
+            android:inputType="none" />
     </LinearLayout>
 
     <Button
@@ -215,7 +217,6 @@
         android:hint="@string/saveButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" >
-    </Button>
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
 </android.support.constraint.ConstraintLayout>
 </ScrollView>

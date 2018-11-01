@@ -4,9 +4,22 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Calendar;
+import java.util.Currency;
+import java.util.Date;
 
 import edu.udacity.project.divdendpayout.R;
 
@@ -19,7 +32,7 @@ import edu.udacity.project.divdendpayout.R;
  * Use the {@link YearToDateFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class YearToDateFragment extends Fragment {
+public class YearToDateFragment extends Fragment implements PortfolioFragment.OnGainSelectedListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -28,6 +41,19 @@ public class YearToDateFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private BigDecimal totalGainLoss = new BigDecimal(0);
+    private BigDecimal totalReceived = new BigDecimal(0);
+    private BigDecimal totalProjected = new BigDecimal(0);
+
+    private TextView ytdDividends;
+    private TextView gainLoss;
+    private TextView projectedDivs;
+    private TextView ytdLabel;
+    private AdView mAdView;
+    private Tracker mTracker;
+
+    private final static String LOG_TAG = YearToDateFragment.class.getSimpleName();
 
     private OnFragmentInteractionListener mListener;
 
@@ -60,13 +86,47 @@ public class YearToDateFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        AnalyticsApplication application = (AnalyticsApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_year_to_date, container, false);
+        View view = inflater.inflate(R.layout.fragment_year_to_date, container, false);
+        mAdView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        ytdDividends = (TextView) view.findViewById(R.id.ytdDivs);
+        gainLoss = (TextView) view.findViewById(R.id.unrealizedGainLoss);
+        projectedDivs= (TextView) view.findViewById(R.id.totalDivsPredicted);
+        ytdLabel = (TextView) view.findViewById(R.id.yearToDateHeader);
+        if (savedInstanceState!=null) {
+            totalReceived = (BigDecimal) savedInstanceState.getSerializable(getString(R.string.ytdDividendsReceived));
+            totalGainLoss = (BigDecimal) savedInstanceState.getSerializable(getString(R.string.ytdUnrealizedGainLoss));
+            totalProjected = (BigDecimal) savedInstanceState.getSerializable(getString(R.string.ytdTotalDividendsForYear));
+        }
+        ytdDividends.setText(NumberFormat.getCurrencyInstance().format(totalReceived));
+        ytdDividends.setContentDescription(NumberFormat.getCurrencyInstance().format(totalReceived));
+        gainLoss.setText(NumberFormat.getCurrencyInstance().format(totalGainLoss));
+        gainLoss.setContentDescription(NumberFormat.getCurrencyInstance().format(totalGainLoss));
+        projectedDivs.setText(NumberFormat.getCurrencyInstance().format(totalProjected));
+        projectedDivs.setContentDescription(NumberFormat.getCurrencyInstance().format(totalProjected));
+
+        ytdLabel.setText(String.format(getString(R.string.ytdHeader), Integer.toString(Calendar.getInstance().get(Calendar.YEAR))));
+        ytdLabel.setContentDescription(String.format(getString(R.string.ytdHeader), Integer.toString(Calendar.getInstance().get(Calendar.YEAR))));
+        return view;
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        Log.d(LOG_TAG, "save instance state fragment");
+        savedInstanceState.putSerializable(getString(R.string.ytdDividendsReceived), totalReceived);
+        savedInstanceState.putSerializable(getString(R.string.ytdUnrealizedGainLoss), totalGainLoss);
+        savedInstanceState.putSerializable(getString(R.string.ytdTotalDividendsForYear), totalProjected);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -93,6 +153,29 @@ public class YearToDateFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mTracker.setScreenName(LOG_TAG);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+    }
+
+    @Override
+    public void setTotalGainLoss(BigDecimal gainLossD, BigDecimal dividendsReceived, BigDecimal projectedDividends) {
+        this.totalGainLoss = gainLossD;
+        this.totalReceived = dividendsReceived;
+        this.totalProjected = projectedDividends;
+        if (ytdDividends!=null) {
+            ytdDividends.setText(NumberFormat.getCurrencyInstance().format(totalReceived));
+        }
+        if (gainLoss!=null) {
+            gainLoss.setText(NumberFormat.getCurrencyInstance().format(totalGainLoss));
+        }
+        if (projectedDivs!=null) {
+            projectedDivs.setText(NumberFormat.getCurrencyInstance().format(totalProjected));
+        }
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -107,4 +190,5 @@ public class YearToDateFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

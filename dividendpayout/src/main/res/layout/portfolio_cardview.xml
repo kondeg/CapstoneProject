@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="3dp"
+    android:layout_marginStart="3dp"
+    app:cardCornerRadius="3dp"
+    app:cardElevation="3dp"
+    android:focusable="true"
+    android:contentDescription="@string/clickToTradeTicker"
+    android:id="@+id/cvPortfolio">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:background="@drawable/cellshape_empty"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:padding="3dip"
+            android:id="@+id/pTicker"
+            android:text="@string/portfolioTicker"
+            android:textStyle="bold" />
+
+        <TextView
+            android:background="@drawable/cellshape_empty"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:padding="3dip"
+            android:id="@+id/pShares"
+            android:text="@string/portfolioShares"
+            android:textStyle="bold" />
+
+        <TextView
+            android:background="@drawable/cellshape_empty"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1.3"
+            android:layout_height="wrap_content"
+            android:padding="3dip"
+            android:id="@+id/pPrice"
+            android:text="@string/portfolioPrice"
+            android:textStyle="bold" />
+
+        <TextView
+            android:background="@drawable/cellshape_empty"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:padding="3dip"
+            android:id="@+id/pYield"
+            android:text="@string/portfolioYield"
+            android:textStyle="bold" />
+
+        <TextView
+            android:background="@drawable/cellshape_empty"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="wrap_content"
+            android:padding="3dip"
+            android:id="@+id/pAmount"
+            android:text="@string/portfolioAmount"
+            android:textStyle="bold" />
+
+        <TextView
+            android:background="@drawable/cellshape_empty"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="wrap_content"
+            android:padding="3dip"
+            android:id="@+id/pGain"
+            android:text="@string/portfolioGain"
+            android:textStyle="bold" />
+    </LinearLayout>
+</android.support.v7.widget.CardView>

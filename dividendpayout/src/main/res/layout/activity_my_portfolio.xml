@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/activity_my_portfolio"
-    tools:context="edu.udacity.project.app.MyPortfolio">
+    tools:context="edu.udacity.project.dividendpayout.app.MyPortfolio">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
@@ -21,6 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
+        android:contentDescription="@string/app_name"
         android:textSize="20dp"/>
     </android.support.v7.widget.Toolbar>
 

@@ -1,15 +1,407 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.udacity.project.app.CashFlowFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    android:layout_weight="1"
+    android:orientation="vertical"
+    tools:context="edu.udacity.project.dividendpayout.app.CashFlowFragment">
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:text="Cash Flow" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <android.support.constraint.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/cashFlowHeader"
+                style="@style/FormLabelSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/cashFlowHeader"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-</RelativeLayout>
+            <TableLayout
+                android:id="@+id/monthTables"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="8dp"
+                android:stretchColumns="0,1,2"
+
+                app:layout_constraintTop_toBottomOf="@+id/cashFlowHeader">
+
+                <TableRow>
+
+                    <TextView
+                        android:background="@drawable/cellshape"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="@string/cashFlowMonthHeader"
+                        android:contentDescription="@string/cashFlowMonthHeader"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:background="@drawable/cellshape"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="@string/cashFlowPredictedHeader"
+                        android:contentDescription="@string/cashFlowPredictedHeader"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:background="@drawable/cellshape"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="@string/cashFlowReceivedHeader"
+                        android:contentDescription="@string/cashFlowReceivedHeader"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="@string/January"
+                        android:contentDescription="@string/January"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/predJanuary"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/actJanuary"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="@string/February"
+                        android:contentDescription="@string/February"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/predFebruary"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/actFebruary"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="@string/March"
+                        android:contentDescription="@string/March"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/predMarch"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/actMarch"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="@string/April"
+                        android:contentDescription="@string/April"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/predApril"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/actApril"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="@string/May"
+                        android:contentDescription="@string/May"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/predMay"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/actMay"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="@string/June"
+                        android:contentDescription="@string/June"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/predJune"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/actJune"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="@string/July"
+                        android:contentDescription="@string/July"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/predJuly"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/actJuly"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="@string/August"
+                        android:contentDescription="@string/August"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/predAugust"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/actAugust"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="@string/September"
+                        android:contentDescription="@string/September"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/predSept"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/actSept"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="@string/October"
+                        android:contentDescription="@string/October"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/predOctober"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/actOctober"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="@string/November"
+                        android:contentDescription="@string/November"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/predNovember"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:contentDescription="@string/zeroDollars"
+                        android:padding="3dip"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/actNovember"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:text="@string/December"
+                        android:contentDescription="@string/December"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/predDecember"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/actDecember"
+                        android:background="@drawable/cellshape_empty"
+                        android:gravity="center"
+                        android:padding="3dip"
+                        android:contentDescription="@string/zeroDollars"
+                        android:textStyle="bold" />
+                </TableRow>
+            </TableLayout>
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        ads:adSize="BANNER"
+        android:contentDescription="@string/advertisement"
+        ads:adUnitId="@string/adUnitId"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+</android.support.constraint.ConstraintLayout>

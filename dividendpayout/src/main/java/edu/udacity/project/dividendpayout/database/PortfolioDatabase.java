@@ -10,7 +10,7 @@ import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-@Database(entities = {Position.class, Dividend.class}, version = 1)
+@Database(entities = {Position.class, Dividend.class, DividendSystem.class, DividendPaymentHistory.class}, version = 1)
 @TypeConverters({CurrencyConverter.class, DateConverter.class})
 public abstract class PortfolioDatabase extends RoomDatabase {
 
@@ -21,7 +21,8 @@ public abstract class PortfolioDatabase extends RoomDatabase {
             synchronized (PortfolioDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context,
-                            PortfolioDatabase.class, "dividendpayout")
+                            PortfolioDatabase.class, "dividend_payout")
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }

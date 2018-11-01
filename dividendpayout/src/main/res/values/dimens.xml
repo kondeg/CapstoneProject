@@ -1,3 +1,8 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="default_element_height">26dp</dimen>
+    <dimen name="margin_left_right">20dp</dimen>
+    <dimen name="margin_std">10dp</dimen>
+    <dimen name="margin_widget">3dp</dimen>
+    <dimen name="trade_width_land">552dp</dimen>
 </resources>

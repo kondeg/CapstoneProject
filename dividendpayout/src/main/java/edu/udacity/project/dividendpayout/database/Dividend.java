@@ -3,6 +3,7 @@ package edu.udacity.project.dividendpayout.database;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 import android.os.Parcel;
@@ -11,10 +12,13 @@ import android.support.annotation.NonNull;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity(foreignKeys = @ForeignKey(entity = Position.class,
         parentColumns = "id",
-        childColumns = "positionId"))
+        childColumns = "positionId"),
+        indices = {@Index(value = {"positionId", "dividendExDate", "dividendPaymentDate"},
+        unique = true)})
 public class Dividend implements Parcelable {
 
     @PrimaryKey
@@ -26,8 +30,12 @@ public class Dividend implements Parcelable {
     String positionId;
 
     @TypeConverters(DateConverter.class)
-    @ColumnInfo(name = "dividendDate")
-    Date dividendDate;
+    @ColumnInfo(name = "dividendExDate")
+    Date dividendExDate;
+
+    @TypeConverters(DateConverter.class)
+    @ColumnInfo(name = "dividendPaymentDate")
+    Date dividendPaymentDate;
 
     @TypeConverters(CurrencyConverter.class)
     @ColumnInfo(name = "dividendAmountPerShare")
@@ -36,15 +44,19 @@ public class Dividend implements Parcelable {
     @ColumnInfo(name = "numberOfShares")
     Integer numberOfShares;
 
-    public Dividend(@NonNull String id, String positionId, Date dividendDate, BigDecimal dividendAmountPerShare, Integer numberOfShares) {
+
+    public Dividend(@NonNull String id, String positionId, Date dividendExDate, Date dividendPaymentDate, BigDecimal dividendAmountPerShare, Integer numberOfShares) {
         this.id = id;
         this.positionId = positionId;
-        this.dividendDate = dividendDate;
+        this.dividendExDate = dividendExDate;
+        this.dividendPaymentDate = dividendPaymentDate;
         this.dividendAmountPerShare = dividendAmountPerShare;
         this.numberOfShares = numberOfShares;
     }
 
-    public Dividend(){}
+    public Dividend(){
+        this.id = UUID.randomUUID().toString();
+    }
 
     @Override
     public int describeContents() {
@@ -55,7 +67,8 @@ public class Dividend implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(this.id);
         parcel.writeString(this.positionId);
-        parcel.writeSerializable(this.dividendDate);
+        parcel.writeSerializable(this.dividendExDate);
+        parcel.writeSerializable(this.dividendPaymentDate);
         parcel.writeSerializable(this.dividendAmountPerShare);
         parcel.writeSerializable(this.numberOfShares);
     }
@@ -63,7 +76,8 @@ public class Dividend implements Parcelable {
     private Dividend (Parcel in) {
         this.id = in.readString();
         this.positionId = in.readString();
-        this.dividendDate = (Date)in.readSerializable();
+        this.dividendExDate = (Date)in.readSerializable();
+        this.dividendPaymentDate = (Date)in.readSerializable();
         this.dividendAmountPerShare = (BigDecimal)in.readSerializable();
         this.numberOfShares = in.readInt();
     }
@@ -97,13 +111,6 @@ public class Dividend implements Parcelable {
         this.positionId = positionId;
     }
 
-    public Date getDividendDate() {
-        return dividendDate;
-    }
-
-    public void setDividendDate(Date dividendDate) {
-        this.dividendDate = dividendDate;
-    }
 
     public BigDecimal getDividendAmountPerShare() {
         return dividendAmountPerShare;
@@ -120,4 +127,21 @@ public class Dividend implements Parcelable {
     public void setNumberOfShares(Integer numberOfShares) {
         this.numberOfShares = numberOfShares;
     }
+
+    public Date getDividendExDate() {
+        return dividendExDate;
+    }
+
+    public void setDividendExDate(Date dividendExDate) {
+        this.dividendExDate = dividendExDate;
+    }
+
+    public Date getDividendPaymentDate() {
+        return dividendPaymentDate;
+    }
+
+    public void setDividendPaymentDate(Date dividendPaymentDate) {
+        this.dividendPaymentDate = dividendPaymentDate;
+    }
+
 }

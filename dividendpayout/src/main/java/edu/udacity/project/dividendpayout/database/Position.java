@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 public class Position implements Parcelable {
@@ -48,10 +49,10 @@ public class Position implements Parcelable {
     BigDecimal salePrice;
 
     @TypeConverters(CurrencyConverter.class)
-    @ColumnInfo(name = "lastDividendAmount")
-    BigDecimal lastDividendAmount;
+    @ColumnInfo(name = "yearlyDividendAmount")
+    BigDecimal yearlyDividendAmount;
 
-    @TypeConverters(CurrencyConverter.class)
+    @TypeConverters(DateConverter.class)
     @ColumnInfo(name = "lastExDate")
     Date lastExDate;
 
@@ -59,10 +60,17 @@ public class Position implements Parcelable {
     @ColumnInfo(name = "lastUpdated")
     Date lastUpdated;
 
+    @ColumnInfo(name = "dividendFrequency")
+    Integer dividendFrequency;
+
+    @TypeConverters(CurrencyConverter.class)
+    @ColumnInfo(name = "dividendYield")
+    BigDecimal dividendYield;
+
     @Ignore
     List<Dividend> dividends;
 
-    public Position(@NonNull String id, String ticker, Integer numberOfShares, BigDecimal purchasePrice, BigDecimal lastKnownPrice, Date purchaseDate, Date saleDate, BigDecimal salePrice, BigDecimal lastDividendAmount, Date lastExDate, Date lastUpdated) {
+    public Position(@NonNull String id, String ticker, Integer numberOfShares, BigDecimal purchasePrice, BigDecimal lastKnownPrice, Date purchaseDate, Date saleDate, BigDecimal salePrice, BigDecimal yearlyDividendAmount, Date lastExDate, Date lastUpdated, Integer dividendFrequency, BigDecimal dividendYield) {
         this.id = id;
         this.ticker = ticker;
         this.numberOfShares = numberOfShares;
@@ -71,13 +79,15 @@ public class Position implements Parcelable {
         this.purchaseDate = purchaseDate;
         this.saleDate = saleDate;
         this.salePrice = salePrice;
-        this.lastDividendAmount = lastDividendAmount;
+        this.yearlyDividendAmount = yearlyDividendAmount;
         this.lastExDate = lastExDate;
         this.lastUpdated = lastUpdated;
+        this.dividendFrequency = dividendFrequency;
+        this.dividendYield = dividendYield;
     }
 
     public Position() {
-
+        this.setId(UUID.randomUUID().toString());
     }
 
 
@@ -95,10 +105,12 @@ public class Position implements Parcelable {
         parcel.writeSerializable(this.lastKnownPrice);
         parcel.writeSerializable(this.purchaseDate);
         parcel.writeSerializable(this.saleDate);
-        parcel.writeSerializable(this.lastDividendAmount);
+        parcel.writeSerializable(this.yearlyDividendAmount);
         parcel.writeSerializable(this.lastExDate);
         parcel.writeSerializable(this.lastUpdated);
         parcel.writeList(this.dividends);
+        parcel.writeInt(this.dividendFrequency);
+        parcel.writeSerializable(this.dividendYield);
     }
 
     private Position (Parcel in) {
@@ -110,11 +122,13 @@ public class Position implements Parcelable {
         this.purchaseDate = (Date) in.readSerializable();
         this.saleDate = (Date) in.readSerializable();
         this.salePrice = (BigDecimal) in.readSerializable();
-        this.lastDividendAmount = (BigDecimal) in.readSerializable();
+        this.yearlyDividendAmount = (BigDecimal) in.readSerializable();
         this.lastExDate = (Date) in.readSerializable();
         this.lastUpdated = (Date) in.readSerializable();
         this.dividends = new ArrayList<Dividend>();
         in.readList(this.dividends, null);
+        this.dividendFrequency = (Integer) in.readInt();
+        this.dividendYield = (BigDecimal) in.readSerializable();
     }
 
     public static final Parcelable.Creator<Position> CREATOR = new
@@ -203,14 +217,6 @@ public class Position implements Parcelable {
         this.salePrice = salePrice;
     }
 
-    public BigDecimal getLastDividendAmount() {
-        return lastDividendAmount;
-    }
-
-    public void setLastDividendAmount(BigDecimal lastDividendAmount) {
-        this.lastDividendAmount = lastDividendAmount;
-    }
-
     public Date getLastExDate() {
         return lastExDate;
     }
@@ -225,5 +231,29 @@ public class Position implements Parcelable {
 
     public void setLastUpdated(Date lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    public Integer getDividendFrequency() {
+        return dividendFrequency;
+    }
+
+    public void setDividendFrequency(Integer dividendFrequency) {
+        this.dividendFrequency = dividendFrequency;
+    }
+
+    public BigDecimal getYearlyDividendAmount() {
+        return yearlyDividendAmount;
+    }
+
+    public void setYearlyDividendAmount(BigDecimal yearlyDividendAmount) {
+        this.yearlyDividendAmount = yearlyDividendAmount;
+    }
+
+    public BigDecimal getDividendYield() {
+        return dividendYield;
+    }
+
+    public void setDividendYield(BigDecimal dividendYield) {
+        this.dividendYield = dividendYield;
     }
 }
