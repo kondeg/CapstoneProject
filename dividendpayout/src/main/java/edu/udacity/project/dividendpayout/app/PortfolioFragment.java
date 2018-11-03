@@ -74,13 +74,10 @@ public class PortfolioFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private PortfolioDatabase pDatabase;
-
     private LiveData<List<PositionWithDividend>> portfolioEntryList;
     private LiveData<DividendSystem> lu;
     private FragmentActivity activity;
-
-
-    PortfolioViewModel model = null;
+    private PortfolioViewModel model = null;
     private ArrayList<PortfolioEntry> portfolioEntries;
     private RecyclerView.Adapter pReviewAdapter = null;
     private TextView lastUpdatedDate = null;
@@ -145,7 +142,6 @@ public class PortfolioFragment extends Fragment {
         firstNextYear = current.getTime();
         AnalyticsApplication application = (AnalyticsApplication) getActivity().getApplication();
         mTracker = application.getDefaultTracker();
-
         model = ViewModelProviders.of(this).get(PortfolioViewModel.class);
     }
 

@@ -48,7 +48,7 @@ public class AppWidgetProviderImp extends AppWidgetProvider {
                                      if (dow1!=null && dow2!=null) {
                                          Log.d(LOG_TAG, "Dow 1 value "+dow1.getSettingValue()+" Dow 2 value "+dow2.getSettingValue());
                                          Integer dif = Math.round(Float.valueOf(dow2.getSettingValue()) - (Float.valueOf(dow1.getSettingValue())));
-                                         views.setTextViewText(R.id.widget_dow, context.getResources().getString(R.string.dowStr)+" "+dow2.getSettingValue()+(dif>=0?" (+"+dif+")":" (-"+dif+")"));
+                                         views.setTextViewText(R.id.widget_dow, context.getResources().getString(R.string.dowStr)+" "+dow2.getSettingValue()+(dif>=0?" (+"+dif+")":" ("+dif+")"));
                                      }
                                      DividendSystem sp1 = portfolioDatabase.portfolioDao().getSettingByNameValue(Endpoints.spSymbol+"prev_close");
                                      DividendSystem sp2 = portfolioDatabase.portfolioDao().getSettingByNameValue(Endpoints.spSymbol+"data_value");
@@ -57,7 +57,7 @@ public class AppWidgetProviderImp extends AppWidgetProvider {
                                      if (sp1!=null && sp2!=null) {
                                          Log.d(LOG_TAG, "SP 1 value "+sp1.getSettingValue()+" Dow 2 value "+sp2.getSettingValue());
                                          Integer dif = Math.round(Float.valueOf(sp2.getSettingValue()) - (Float.valueOf(sp1.getSettingValue())));
-                                         views.setTextViewText(R.id.widget_sp, context.getResources().getString(R.string.sp)+" "+sp2.getSettingValue()+(dif>=0?" (+"+dif+")":" (-"+dif+")"));
+                                         views.setTextViewText(R.id.widget_sp, context.getResources().getString(R.string.sp)+" "+sp2.getSettingValue()+(dif>=0?" (+"+dif+")":" ("+dif+")"));
                                      }
                                      DividendSystem ns1 = portfolioDatabase.portfolioDao().getSettingByNameValue(Endpoints.nasdaqSymbol+"prev_close");
                                      DividendSystem ns2 = portfolioDatabase.portfolioDao().getSettingByNameValue(Endpoints.nasdaqSymbol+"data_value");

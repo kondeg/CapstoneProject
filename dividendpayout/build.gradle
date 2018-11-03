@@ -3,10 +3,10 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         config {
-            keyAlias 'key0'
-            keyPassword 'PASSWORD'
-            storeFile file('/Users/KD/Documents/android_keystore')
-            storePassword 'PASSWORD'
+            keyAlias 'key1'
+            keyPassword 'password'
+            storeFile file("$rootDir/keystore/dividend_keystore.jks")
+            storePassword 'password'
         }
     }
     compileSdkVersion 27
