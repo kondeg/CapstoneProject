@@ -19,6 +19,7 @@ import com.google.android.gms.analytics.Tracker;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import edu.udacity.project.divdendpayout.R;
 
@@ -51,7 +52,7 @@ public class CashFlowFragment extends Fragment implements PortfolioFragment.OnCa
     SparseArray<BigDecimal> predDividendMap = new SparseArray<>(12);
     SparseArray<TextView> predDividendMapTextView = new SparseArray<>(12);
 
-    private final String def = NumberFormat.getCurrencyInstance().format(0);
+    private final String def = NumberFormat.getCurrencyInstance(Locale.US).format(0);
 
     private TextView cashFlowLabel;
 
@@ -134,11 +135,11 @@ public class CashFlowFragment extends Fragment implements PortfolioFragment.OnCa
             for(int i = 0; i<12; i++) {
                 if(savedInstanceState.get(getString(R.string.ytdActualDividends)+i)!=null) {
                     actualDividendMap.put(i, (BigDecimal)savedInstanceState.get(getString(R.string.ytdActualDividends)+i));
-                    actualDividendMapTextView.get(i).setText(NumberFormat.getCurrencyInstance().format((BigDecimal)savedInstanceState.get(getString(R.string.ytdActualDividends)+i)));
+                    actualDividendMapTextView.get(i).setText(NumberFormat.getCurrencyInstance(Locale.US).format((BigDecimal)savedInstanceState.get(getString(R.string.ytdActualDividends)+i)));
                 }
                 if(savedInstanceState.get(getString(R.string.ytdPredDividends)+i)!=null) {
                     predDividendMap.put(i, (BigDecimal)savedInstanceState.get(getString(R.string.ytdPredDividends)+i));
-                    predDividendMapTextView.get(i).setText(NumberFormat.getCurrencyInstance().format((BigDecimal)savedInstanceState.get(getString(R.string.ytdPredDividends)+i)));
+                    predDividendMapTextView.get(i).setText(NumberFormat.getCurrencyInstance(Locale.US).format((BigDecimal)savedInstanceState.get(getString(R.string.ytdPredDividends)+i)));
                 }
             }
         }
@@ -185,13 +186,13 @@ public class CashFlowFragment extends Fragment implements PortfolioFragment.OnCa
         for(int i = 0; i<12; i++) {
             if (actualDividendMap.get(i)!=null) {
                 Log.d(LOG_TAG,"Found dividend actual index "+i);
-                actualDividendMapTextView.get(i).setText(NumberFormat.getCurrencyInstance().format(actualDividendMap.get(i)));
-                actualDividendMapTextView.get(i).setContentDescription(NumberFormat.getCurrencyInstance().format(actualDividendMap.get(i)));
+                actualDividendMapTextView.get(i).setText(NumberFormat.getCurrencyInstance(Locale.US).format(actualDividendMap.get(i)));
+                actualDividendMapTextView.get(i).setContentDescription(NumberFormat.getCurrencyInstance(Locale.US).format(actualDividendMap.get(i)));
             }
             if (predDividendMap.get(i)!=null) {
                 Log.d(LOG_TAG,"Found dividend predicted index "+i);
-                predDividendMapTextView.get(i).setText(NumberFormat.getCurrencyInstance().format(predDividendMap.get(i)));
-                predDividendMapTextView.get(i).setContentDescription(NumberFormat.getCurrencyInstance().format(predDividendMap.get(i)));
+                predDividendMapTextView.get(i).setText(NumberFormat.getCurrencyInstance(Locale.US).format(predDividendMap.get(i)));
+                predDividendMapTextView.get(i).setContentDescription(NumberFormat.getCurrencyInstance(Locale.US).format(predDividendMap.get(i)));
             }
         }
     }

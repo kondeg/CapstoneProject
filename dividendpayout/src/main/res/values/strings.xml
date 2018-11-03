@@ -84,7 +84,7 @@
     <string name="myPortfolio">Portfolio</string>
     <string name="nextDividend">Div</string>
 
-    <string name="adUnitId">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="appId">ca-app-pub-6294256065706480~9370440094</string>
-    <string name="analyticsApId">UA-128363627-1</string>
+    <string name="adUnitId">REPLACE</string>
+    <string name="appId">REPLACE</string>
+    <string name="analyticsApId">REPLACE</string>
 </resources>

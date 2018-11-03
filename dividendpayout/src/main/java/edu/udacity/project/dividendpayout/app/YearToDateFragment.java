@@ -20,6 +20,7 @@ import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
+import java.util.Locale;
 
 import edu.udacity.project.divdendpayout.R;
 
@@ -107,12 +108,12 @@ public class YearToDateFragment extends Fragment implements PortfolioFragment.On
             totalGainLoss = (BigDecimal) savedInstanceState.getSerializable(getString(R.string.ytdUnrealizedGainLoss));
             totalProjected = (BigDecimal) savedInstanceState.getSerializable(getString(R.string.ytdTotalDividendsForYear));
         }
-        ytdDividends.setText(NumberFormat.getCurrencyInstance().format(totalReceived));
-        ytdDividends.setContentDescription(NumberFormat.getCurrencyInstance().format(totalReceived));
-        gainLoss.setText(NumberFormat.getCurrencyInstance().format(totalGainLoss));
-        gainLoss.setContentDescription(NumberFormat.getCurrencyInstance().format(totalGainLoss));
-        projectedDivs.setText(NumberFormat.getCurrencyInstance().format(totalProjected));
-        projectedDivs.setContentDescription(NumberFormat.getCurrencyInstance().format(totalProjected));
+        ytdDividends.setText(NumberFormat.getCurrencyInstance(Locale.US).format(totalReceived));
+        ytdDividends.setContentDescription(NumberFormat.getCurrencyInstance(Locale.US).format(totalReceived));
+        gainLoss.setText(NumberFormat.getCurrencyInstance(Locale.US).format(totalGainLoss));
+        gainLoss.setContentDescription(NumberFormat.getCurrencyInstance(Locale.US).format(totalGainLoss));
+        projectedDivs.setText(NumberFormat.getCurrencyInstance(Locale.US).format(totalProjected));
+        projectedDivs.setContentDescription(NumberFormat.getCurrencyInstance(Locale.US).format(totalProjected));
 
         ytdLabel.setText(String.format(getString(R.string.ytdHeader), Integer.toString(Calendar.getInstance().get(Calendar.YEAR))));
         ytdLabel.setContentDescription(String.format(getString(R.string.ytdHeader), Integer.toString(Calendar.getInstance().get(Calendar.YEAR))));
@@ -166,13 +167,13 @@ public class YearToDateFragment extends Fragment implements PortfolioFragment.On
         this.totalReceived = dividendsReceived;
         this.totalProjected = projectedDividends;
         if (ytdDividends!=null) {
-            ytdDividends.setText(NumberFormat.getCurrencyInstance().format(totalReceived));
+            ytdDividends.setText(NumberFormat.getCurrencyInstance(Locale.US).format(totalReceived));
         }
         if (gainLoss!=null) {
-            gainLoss.setText(NumberFormat.getCurrencyInstance().format(totalGainLoss));
+            gainLoss.setText(NumberFormat.getCurrencyInstance(Locale.US).format(totalGainLoss));
         }
         if (projectedDivs!=null) {
-            projectedDivs.setText(NumberFormat.getCurrencyInstance().format(totalProjected));
+            projectedDivs.setText(NumberFormat.getCurrencyInstance(Locale.US).format(totalProjected));
         }
     }
 

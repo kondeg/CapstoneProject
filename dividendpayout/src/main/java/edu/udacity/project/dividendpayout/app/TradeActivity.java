@@ -197,7 +197,7 @@ public class TradeActivity extends AppCompatActivity {
                 saleDate.setText(sdf.format(tradePosition.getSaleDate()));
             }
             if (update && tradePosition.getPurchasePrice()!=null) {
-                purchasePrice.setText(NumberFormat.getCurrencyInstance().format(tradePosition.getPurchasePrice()));
+                purchasePrice.setText(NumberFormat.getCurrencyInstance(Locale.US).format(tradePosition.getPurchasePrice()));
             }
             if (update && tradePosition.getSalePrice()!=null) {
                 salePrice.setText(NumberFormat.getInstance().format(tradePosition.getSalePrice()));
