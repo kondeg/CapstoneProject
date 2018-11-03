@@ -1,7 +1,10 @@
 package edu.udacity.project.dividendpayout.app;
 
+import android.app.Activity;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +13,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -39,11 +43,10 @@ import edu.udacity.project.divdendpayout.R;
 import edu.udacity.project.dividendpayout.database.Dividend;
 import edu.udacity.project.dividendpayout.database.DividendPaymentHistory;
 import edu.udacity.project.dividendpayout.database.DividendSystem;
-import edu.udacity.project.dividendpayout.database.PortfolioDao;
 import edu.udacity.project.dividendpayout.database.PortfolioDatabase;
 import edu.udacity.project.dividendpayout.database.PortfolioEntry;
 import edu.udacity.project.dividendpayout.database.PortfolioExecutor;
-import edu.udacity.project.dividendpayout.database.Position;
+import edu.udacity.project.dividendpayout.database.PortfolioViewModel;
 import edu.udacity.project.dividendpayout.database.PositionWithDividend;
 import edu.udacity.project.dividendpayout.util.Endpoints;
 import edu.udacity.project.dividendpayout.util.NetworkCallUtil;
@@ -74,6 +77,10 @@ public class PortfolioFragment extends Fragment {
 
     private LiveData<List<PositionWithDividend>> portfolioEntryList;
     private LiveData<DividendSystem> lu;
+    private FragmentActivity activity;
+
+
+    PortfolioViewModel model = null;
     private ArrayList<PortfolioEntry> portfolioEntries;
     private RecyclerView.Adapter pReviewAdapter = null;
     private TextView lastUpdatedDate = null;
@@ -139,6 +146,7 @@ public class PortfolioFragment extends Fragment {
         AnalyticsApplication application = (AnalyticsApplication) getActivity().getApplication();
         mTracker = application.getDefaultTracker();
 
+        model = ViewModelProviders.of(this).get(PortfolioViewModel.class);
     }
 
     @Override
@@ -182,6 +190,8 @@ public class PortfolioFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
+        } else if (context instanceof Activity) {
+            activity = (FragmentActivity) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -206,9 +216,8 @@ public class PortfolioFragment extends Fragment {
                 networkCallUtil.syncMarketData(Endpoints.dowSymbol);
                 networkCallUtil.syncMarketData(Endpoints.spSymbol);
                 networkCallUtil.syncMarketData(Endpoints.nasdaqSymbol);
-                portfolioEntryList = pDatabase.portfolioDao().getAllActivePositionsWithDividendBetweenDates(firstOfYear, firstNextYear);
-
-                portfolioEntryList.observe(getActivity(), new Observer<List<PositionWithDividend>>() {
+                portfolioEntryList = model.getPositionWithDividend(firstOfYear, firstNextYear);
+                portfolioEntryList.observe(PortfolioFragment.this, new Observer<List<PositionWithDividend>>() {
                     @Override
                     public void onChanged(@Nullable List<PositionWithDividend> portfolioData) {
                         if (portfolioEntries == null) {
@@ -240,20 +249,20 @@ public class PortfolioFragment extends Fragment {
                                     pe.setPortfolioYield(pod.getPosition().getDividendYield().toString().concat("%"));
                                 }
                                 if (pod.getPosition().getLastKnownPrice() == null) {
-                                    pe.setPortfolioPrice(NumberFormat.getCurrencyInstance().format(pod.getPosition().getPurchasePrice()));
+                                    pe.setPortfolioPrice(NumberFormat.getCurrencyInstance(Locale.US).format(pod.getPosition().getPurchasePrice()));
                                 } else {
-                                    pe.setPortfolioPrice(NumberFormat.getCurrencyInstance().format(pod.getPosition().getLastKnownPrice()));
+                                    pe.setPortfolioPrice(NumberFormat.getCurrencyInstance(Locale.US).format(pod.getPosition().getLastKnownPrice()));
                                 }
                                 pe.setPositionId(pod.getPosition().getId());
                                 if (pod.getPosition().getLastKnownPrice() != null && pod.getPosition().getNumberOfShares() != null) {
-                                    pe.setPortfolioAmount(NumberFormat.getCurrencyInstance().format(pod.getPosition().getLastKnownPrice()
+                                    pe.setPortfolioAmount(NumberFormat.getCurrencyInstance(Locale.US).format(pod.getPosition().getLastKnownPrice()
                                             .multiply(new BigDecimal(pod.getPosition().getNumberOfShares()))));
                                 }
                                 if (pod.getPosition().getPurchasePrice() != null && pod.getPosition().getNumberOfShares() != null && pod.getPosition().getLastKnownPrice() != null) {
                                     gain = (new BigDecimal(pod.getPosition().getNumberOfShares()).multiply(pod.getPosition().getLastKnownPrice())).subtract(
                                             new BigDecimal(pod.getPosition().getNumberOfShares()).multiply(pod.getPosition().getPurchasePrice()));
                                     Log.d(LOG_TAG, "Gain " + gain.toString());
-                                    pe.setPortfolioGain(NumberFormat.getCurrencyInstance().format(gain));
+                                    pe.setPortfolioGain(NumberFormat.getCurrencyInstance(Locale.US).format(gain));
                                     if (totalGainLoss == null) {
                                         totalGainLoss = new BigDecimal(0);
                                     }
@@ -302,13 +311,9 @@ public class PortfolioFragment extends Fragment {
                         pReviewAdapter.notifyDataSetChanged();
                     }
                 });
-                lu = pDatabase.portfolioDao().getSettingByName(getString(R.string.lastUpdatedDateSetting));
-                DividendSystem du = pDatabase.portfolioDao().getSettingByNameValue(getString(R.string.lastUpdatedDateSetting));
-                if (du!=null) {
-                    Message message = mHandler.obtainMessage(0, du.getSettingValue());
-                    message.sendToTarget();
-                }
-                lu.observe(getActivity(), new Observer<DividendSystem>() {
+
+                lu = model.getDividendSystem(getString(R.string.lastUpdatedDateSetting));
+                lu.observe(PortfolioFragment.this, new Observer<DividendSystem>() {
                     @Override
                     public void onChanged(@Nullable DividendSystem lastUpdated) {
                          if (lastUpdated!=null) {

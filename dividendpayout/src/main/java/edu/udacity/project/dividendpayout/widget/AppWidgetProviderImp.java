@@ -66,7 +66,7 @@ public class AppWidgetProviderImp extends AppWidgetProvider {
                                      if (ns1!=null && ns2!=null) {
                                          Log.d(LOG_TAG, "Nasdaq 1 value "+ns1.getSettingValue()+" Nasdaq 2 value "+ns2.getSettingValue());
                                          Integer dif = Math.round(Float.valueOf(ns2.getSettingValue()) - (Float.valueOf(ns1.getSettingValue())));
-                                         views.setTextViewText(R.id.widget_nasdaq, context.getResources().getString(R.string.nasdaq)+" "+ns2.getSettingValue()+(dif>=0?" (+"+dif+")":" (-"+dif+")"));
+                                         views.setTextViewText(R.id.widget_nasdaq, context.getResources().getString(R.string.nasdaq)+" "+ns2.getSettingValue()+(dif>=0?" (+"+dif+")":" ("+dif+")"));
                                      }
                                      BigDecimal purchaseCost = new BigDecimal(0);
                                      BigDecimal marketCost = new BigDecimal(0);
@@ -88,17 +88,17 @@ public class AppWidgetProviderImp extends AppWidgetProvider {
                                          }
                                      }
                                      if (marketCost!=null && purchaseCost!=null && purchaseCost.compareTo(new BigDecimal(0))>0) {
-                                         BigDecimal percentage = (marketCost.subtract(purchaseCost).divide(purchaseCost).multiply(new BigDecimal(100))).setScale(2, RoundingMode.CEILING);
+                                         BigDecimal percentage = (marketCost.subtract(purchaseCost).divide(purchaseCost,2, RoundingMode.CEILING).multiply(new BigDecimal(100))).setScale(2, RoundingMode.CEILING);
                                          BigDecimal gain = (marketCost.subtract(purchaseCost)).setScale(2, RoundingMode.CEILING);
                                          Log.d(LOG_TAG, "Gain "+gain+ " "+" Percent "+percentage);
-                                         views.setTextViewText(R.id.widget_myportfolio, context.getResources().getString(R.string.myPortfolio)+" "+ NumberFormat.getCurrencyInstance().format(gain)+" ("+
+                                         views.setTextViewText(R.id.widget_myportfolio, context.getResources().getString(R.string.myPortfolio)+" "+ NumberFormat.getCurrencyInstance(Locale.US).format(gain)+" ("+
                                          percentage+"%)");
                                      } else {
                                          Log.d(LOG_TAG, "Market cost or purchase cost are null");
                                      }
                                      if (nextDividend!=null) {
                                          views.setTextViewText(R.id.widget_next_div, context.getResources().getString(R.string.nextDividend)+" "+nextDividend.getTicker()+ " "+sdf.format(nextDividend.getPaymentDate())+ " "+
-                                         NumberFormat.getCurrencyInstance().format(nextDividend.getDivAmount().multiply(new BigDecimal(nextDividend.getShares()).setScale(2, RoundingMode.CEILING))));
+                                         NumberFormat.getCurrencyInstance(Locale.US).format(nextDividend.getDivAmount().multiply(new BigDecimal(nextDividend.getShares()).setScale(2, RoundingMode.CEILING))));
                                      } else {
                                          Log.d(LOG_TAG, "Next dividend is null");
                                      }

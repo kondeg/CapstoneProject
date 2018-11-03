@@ -7,6 +7,7 @@ import android.widget.EditText;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.Locale;
 
 public class NumberTextWatcher implements TextWatcher {
 
@@ -42,7 +43,7 @@ public class NumberTextWatcher implements TextWatcher {
             String cleanString = s.toString().replaceAll("[$,.]", "");
 
             double parsed = Double.parseDouble(cleanString);
-            String formated = NumberFormat.getCurrencyInstance().format((parsed/100));
+            String formated = NumberFormat.getCurrencyInstance(Locale.US).format((parsed/100));
 
             current = formated;
             et.setText(formated);
